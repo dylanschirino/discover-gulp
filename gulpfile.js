@@ -8,11 +8,15 @@ size = require ( 'gulp-size' ),
 del = require ( 'del' ),
 cleanDest = require ( 'gulp-dest-clean'),
 imacss = require ( 'gulp-imacss' ),
-sass = require ( 'gulp-sass' );
+sass = require ( 'gulp-sass' ),
+htmlPreprocess = require ( 'gulp-preprocess' ),
+htmlclean = require ('gulp-htmlclean'),
+pkg = require ('./package.json'); // comme ca on a le scope de l'object package.json du coup on peut recuperer le nom de l'auteur par exemple.
 
 
 // Définition de quelques variables générales
 var
+devBuild = ( (process.env.NODE_ENV || 'development').trim().toLowerCase() !== 'production'),
 source = 'source/',
 dest = 'build/';
 
@@ -36,9 +40,19 @@ css = {
   watch: [source + 'scss/**/*'],
   out: dest + 'css/',
   sassOpts: {
-    outputStyle: 'compressed',
+    outputStyle: 'expended',
     precision: 3,
     errLogToConsole:true
+  }
+},
+html = {
+  in: source + '*.html',
+  watch: [source + '*.html', source + 'template/**/*'],
+  out: dest,
+  context: {
+    devBuild: devBuild,
+    author: pkg.author,
+    version: pkg.version
   }
 };
 
@@ -72,14 +86,28 @@ gulp.task('imageuri', function(){
 gulp.task('sass', function(){
 
   return gulp.src(css.in)
-    .pipe(sass(css.sassOpts))
-    .pipe(gulp.dest(css.out));
+  .pipe(sass(css.sassOpts))
+  .pipe(gulp.dest(css.out));
+});
+
+gulp.task('html', function(){
+
+  var page =  gulp.src(html.in)
+  .pipe(htmlPreprocess({context:html.context}));
+  if(!devBuild){
+    page = page
+    .pipe(size({title:'HTML avant nettoyage:'}))
+    .pipe(htmlclean())
+    .pipe(size({title:'HTML après nettoyage:'}))
+  }
+  return page.pipe(gulp.dest(html.out));
 });
 
 
 // Tache par défault exécuté lorsqu'on tape gulp dans le terminal
-gulp.task('default',['images'], function(){
-
+gulp.task('default',['html','images','sass'], function(){
+  gulp.watch(html.watch, ['html']);
   gulp.watch(imagesOpts.watch, ['images']);
+  gulp.watch(css.watch, ['sass']);
 
 });
