@@ -10,7 +10,8 @@ cleanDest = require ( 'gulp-dest-clean'),
 imacss = require ( 'gulp-imacss' ),
 sass = require ( 'gulp-sass' ),
 htmlPreprocess = require ( 'gulp-preprocess' ),
-htmlclean = require ('gulp-htmlclean'),
+htmlclean = require ( 'gulp-htmlclean' ),
+browsersync = require ( 'browser-sync' ),
 pkg = require ('./package.json'); // comme ca on a le scope de l'object package.json du coup on peut recuperer le nom de l'auteur par exemple.
 
 
@@ -54,6 +55,14 @@ html = {
     author: pkg.author,
     version: pkg.version
   }
+},
+syncOpts = {
+  server:{
+    baseDir: dest,
+    index:'index.html'
+  },
+  open:true,
+  notify:true
 };
 
 
@@ -87,8 +96,10 @@ gulp.task('sass', function(){
 
   return gulp.src(css.in)
   .pipe(sass(css.sassOpts))
-  .pipe(gulp.dest(css.out));
+  .pipe(gulp.dest(css.out))
+  .pipe(browsersync.reload({stream: true}));
 });
+
 
 gulp.task('html', function(){
 
@@ -104,9 +115,15 @@ gulp.task('html', function(){
 });
 
 
+gulp.task('browsersynchro', function(){
+  browsersync(syncOpts);
+});
+
+
 // Tache par défault exécuté lorsqu'on tape gulp dans le terminal
-gulp.task('default',['html','images','sass'], function(){
-  gulp.watch(html.watch, ['html']);
+gulp.task('default',['html','images','sass','browsersynchro'], function(){
+
+  gulp.watch(html.watch, ['html',browsersync.reload]);
   gulp.watch(imagesOpts.watch, ['images']);
   gulp.watch(css.watch, ['sass']);
 

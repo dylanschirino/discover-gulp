@@ -26,7 +26,7 @@ body, table, input, textarea, select {
   padding: 0;
   margin: 0;
   color: #444;
-  background-color: #f00; }
+  background-color: #fff; }
 
 h1, h2, h3 {
   font-weight: 700;
@@ -192,7 +192,7 @@ header {
       display: block;
       white-space: nowrap;
       padding: 0.3em;
-      color: #f00; }
+      color: #fff; }
     header nav a:hover, header nav a:focus, header nav a:active {
       text-decoration: none;
       color: #8899aa; }
@@ -205,7 +205,7 @@ header {
   #welcome h1 {
     padding: 35vh 5vw 5vh 5vw;
     margin: 0;
-    color: #f00;
+    color: #fff;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 2px -2px 2px rgba(0, 0, 0, 0.5), -2px 2px 2px rgba(0, 0, 0, 0.5), -2px -2px 2px rgba(0, 0, 0, 0.5); }
   @media (min-width: 25rem) {
     #welcome h1 {
@@ -216,15 +216,15 @@ header {
   #welcome a.button {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 2px -2px 2px rgba(0, 0, 0, 0.5), -2px 2px 2px rgba(0, 0, 0, 0.5), -2px -2px 2px rgba(0, 0, 0, 0.5); }
     #welcome a.button:link, #welcome a.button:visited {
-      color: #f00;
-      border-color: #f00; }
+      color: #fff;
+      border-color: #fff; }
     #welcome a.button:hover, #welcome a.button:focus, #welcome a.button:active {
       color: #8899aa;
       border-color: #8899aa; }
 
 #benefits {
   padding: 5vh 5vw;
-  background-color: #f00; }
+  background-color: #fff; }
   #benefits ul {
     list-style-type: none;
     padding: 0;
@@ -254,7 +254,7 @@ header {
   #features h2 {
     padding: 0;
     margin: 0 0 3vh 0;
-    color: #f00;
+    color: #fff;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), 2px -2px 2px rgba(0, 0, 0, 0.5), -2px 2px 2px rgba(0, 0, 0, 0.5), -2px -2px 2px rgba(0, 0, 0, 0.5); }
   #features ul {
     list-style-type: square;
@@ -262,7 +262,7 @@ header {
     margin: 0;
     column-count: auto;
     column-gap: 2em;
-    color: #f00;
+    color: #fff;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 0.5em; }
   #features li {
@@ -279,7 +279,7 @@ header {
 footer {
   width: 100%;
   padding: 2vh 2vw;
-  color: #f00;
+  color: #fff;
   background-color: #2b333c; }
   footer fieldset {
     max-width: 50em;
